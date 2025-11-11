@@ -3,18 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Кіт + Орбіти (Версія Хостингу)</title>
+  <title>Кіт, Орбіти та Різні Формати Зображень</title>
   <style>
-    /* --- ЗМІНЕНІ СТИЛІ --- */
+    /* --- ОСНОВНІ СТИЛІ СТОРІНКИ --- */
     body, html {
       margin: 0;
       padding: 0;
-      overflow: hidden;
+      overflow: hidden; /* Запобігає прокручуванню */
       height: 100%;
       width: 100%;
-      background-color: #111;
-      font-family: sans-serif;
+      background-color: #111; /* Темний фон */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #fff;
+      display: flex; /* Для центрального розміщення */
+      flex-direction: column;
+      justify-content: space-between; /* Розміщуємо контент зверху, посередині, знизу */
+      align-items: center;
     }
     canvas#c {
       position: fixed;
@@ -25,8 +29,8 @@
       z-index: 1; /* Орбіти на задньому плані */
     }
     
+    /* --- СТИЛІ ДЛЯ КОТА (ВАШІ ОРИГІНАЛЬНІ) --- */
     .main {
-      /* Позиціонування кота, як у вашому оригінальному коді */
       height: 400px;
       width: 400px;
       position: absolute;
@@ -35,95 +39,6 @@
       transform: translate(-50%, -50%);
       z-index: 2; /* Кіт над орбітами */
     }
-
-    /* --- БЛОК ДЛЯ СТАТИЧНОГО ЗОБРАЖЕННЯ --- */
-    .static-image-wrapper {
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60%; /* Ширина блоку для зручності */
-        max-width: 500px;
-        text-align: center;
-        z-index: 3; /* Зображення над усім */
-    }
-    .static-image-wrapper img {
-        width: 100%; /* Зображення займає всю ширину обгортки */
-        height: auto;
-        display: block;
-        margin-top: 10px;
-        border-radius: 10px;
-    }
-    
-    /* --- ВЕСЬ ВАШ ОРИГІНАЛЬНИЙ CSS ТУТ --- */
-    @keyframes tail {
-      6.6% { transform: rotate(0); }
-      10% { transform: rotate(10deg); }
-      16.6% { transform: rotate(-5deg); }
-      20% { transform: rotate(30deg); }
-      26.6% { transform: rotate(-2deg); }
-      46.6% { transform: rotate(10deg); }
-      53.3% { transform: rotate(-5deg); }
-      56.6% { transform: rotate(10deg); }
-    }
-
-    @keyframes body {
-      6.6% { transform: scaleY(1); }
-      10% { transform: scaleY(1.15); }
-      16.6% { transform: scaleY(1); }
-      20% { transform: scaleY(1.25); }
-      26.6% { transform: scaleY(1); }
-      46.6% { transform: scaleY(1.15); }
-      53.3% { transform: scaleY(1); }
-      56.6% { transform: scaleY(1.15); }
-    }
-
-    @keyframes left-whisker {
-      6.6% { transform: rotate(0); }
-      10% { transform: rotate(0deg); }
-      16.6% { transform: rotate(-5deg); }
-      20% { transform: rotate(0deg); }
-      26.6% { transform: rotate(0deg); }
-      46.6% { transform: rotate(10deg); }
-      53.3% { transform: rotate(-5deg); }
-      56.6% { transform: rotate(10deg); }
-    }
-
-    @keyframes right-whisker {
-      6.6% { transform: rotate(180deg); }
-      10% { transform: rotate(190deg); }
-      16.6% { transform: rotate(180deg); }
-      20% { transform: rotate(175deg); }
-      26.6% { transform: rotate(190deg); }
-      46.6% { transform: rotate(180deg); }
-      53.3% { transform: rotate(185deg); }
-      56.6% { transform: rotate(175deg); }
-    }
-
-    @keyframes left-ear {
-      0% { transform: rotate(-20deg); }
-      6.6% { transform: rotate(-6deg); }
-      13.3% { transform: rotate(-15deg); }
-      26.6% { transform: rotate(-15deg); }
-      33.3% { transform: rotate(-30deg); }
-      40% { transform: rotate(-30deg); }
-      46.6% { transform: rotate(0deg); }
-      53.3% { transform: rotate(0deg); }
-      60% { transform: rotate(-15deg); }
-      80% { transform: rotate(-15deg); }
-      93.3% { transform: rotate(-6deg); }
-      100% { transform: rotate(-6deg); }
-    }
-
-    @keyframes right-ear {
-      0%, 6.6% { transform: rotateZ(-16deg); }
-      13.3%, 26.6% { transform: rotateZ(-19deg); }
-      33.3%, 40.6%, 63.3% { transform: rotateZ(-30deg); }
-      36.6%, 38%, 41.3%, 46.6%, 53.3%, 61.3%, 64%, 80% { transform: rotateZ(-19deg); }
-      60.6% { transform: rotateZ(-30deg); }
-      93.3%, 100% { transform: rotateZ(-16deg); }
-    }
-
     .main .stand {
       position: absolute;
       top: 50%;
@@ -135,7 +50,6 @@
       background-color: #fd6e72;
       z-index: 2;
     }
-
     .main .stand::after {
       content: "";
       position: absolute;
@@ -148,7 +62,6 @@
       background-color: #fdf9de;
       box-shadow: 0 10px 0 #fdf9de, 0 20px 0 #fdf9de, 0 30px 0 #fdf9de, 0 40px 0 #fdf9de, 0 50px 0 #fdf9de;
     }
-
     .cat {
       width: 110px;
       height: 50px;
@@ -156,7 +69,6 @@
       top: calc(50% - 50px);
       right: 130px;
     }
-
     .body {
       width: 110px;
       height: 50px;
@@ -166,7 +78,6 @@
       border-top-right-radius: 100px;
       animation: body 12s infinite;
     }
-
     .head {
       width: 70px;
       height: 35px;
@@ -177,7 +88,6 @@
       border-top-left-radius: 80px;
       border-top-right-radius: 80px;
     }
-
     .ear {
       position: absolute;
       left: 4px;
@@ -190,17 +100,14 @@
       transform: rotate(-30deg);
       animation: left-ear 12s infinite;
     }
-
     .ear + .ear {
       animation: right-ear 12s infinite;
       top: -12px;
       left: 30px;
     }
-
     .face {
       position: relative;
     }
-
     .nose {
       position: absolute;
       bottom: 10px;
@@ -210,7 +117,6 @@
       width: 5px;
       border-radius: 50%;
     }
-
     .whisker-container {
       position: absolute;
       bottom: 5px;
@@ -220,14 +126,12 @@
       transform-origin: right;
       animation: left-whisker 12s infinite;
     }
-
     .whisker-container:nth-child(2) {
       left: -20px;
       bottom: 12px;
       transform: rotate(180deg);
       animation: right-whisker 12s infinite;
     }
-
     .whisker {
       position: absolute;
       top: 0;
@@ -235,18 +139,15 @@
       border: 1px solid #fdf9de;
       transform-origin: 100% 0;
     }
-
     .whisker:last-child {
       transform: rotate(-20deg);
     }
-
     .tail-container {
       position: absolute;
       right: 0;
       bottom: -13px;
       z-index: 3;
     }
-
     .tail {
       position: absolute;
       height: 30px;
@@ -257,7 +158,6 @@
       background: #745260;
       z-index: 0;
     }
-
     .tail > .tail {
       animation: tail 12s infinite;
       height: 100%;
@@ -270,7 +170,7 @@
 
     /* --- КОНТРОЛИ ДЛЯ ORBS --- */
     #control-panel {
-      position: fixed;
+      position: fixed; /* Щоб панель залишалася на місці */
       top: 10px;
       left: 10px;
       background: rgba(0,0,0,0.6);
@@ -278,21 +178,84 @@
       border-radius: 8px;
       color: white;
       font-family: sans-serif;
-      z-index: 10;
+      z-index: 10; /* Над усім іншим */
       user-select: none;
     }
-    #control-panel p {
-      margin: 0 0 8px 0;
-      font-size: 14px;
+    #control-panel p { margin: 0 0 8px 0; font-size: 14px; }
+    #control-panel label { margin-right: 10px; }
+    #control-panel button { margin-left: 10px; cursor: pointer; padding: 5px 10px; border-radius: 5px; border: none; background-color: #fd6e72; color: white;}
+    #control-panel a { color: #ccc; text-decoration: none; font-size: 12px; }
+
+    /* --- СТИЛІ ДЛЯ СЕКЦІЇ ЗОБРАЖЕНЬ --- */
+    .image-gallery {
+      position: fixed; /* Щоб галерея залишалася на місці */
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px; /* Відстань між зображеннями */
+      padding: 15px;
+      background: rgba(0,0,0,0.7);
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      z-index: 5; /* Над орбітами, але нижче панелі управління */
+      flex-wrap: wrap; /* Дозволяє переносити зображення на новий рядок на малих екранах */
+      justify-content: center;
+      max-width: 90%; /* Обмеження ширини галереї */
     }
-    #control-panel label {
-      margin-right: 10px;
+    .image-item {
+      text-align: center;
+      color: #eee;
+      font-size: 0.9em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    #control-panel button {
-      margin-left: 10px;
-      cursor: pointer;
+    .image-item img, .image-item svg {
+      width: 120px; /* Фіксована ширина для всіх зображень */
+      height: 120px; /* Фіксована висота */
+      object-fit: contain; /* Зберігає пропорції */
+      border: 3px solid #745260;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease-in-out;
+      background-color: rgba(255,255,255,0.05); /* Легкий фон для прозорих PNG */
+    }
+    .image-item img:hover, .image-item svg:hover {
+      transform: scale(1.05);
+      border-color: #fd6e72;
+    }
+    .image-item p {
+      margin-top: 8px;
+      margin-bottom: 0;
+      font-weight: bold;
+    }
+
+    /* Анімації для кота */
+    @keyframes tail { /* ... (ваш код анімації хвоста) ... */
+      6.6% { transform: rotate(0); } 10% { transform: rotate(10deg); } 16.6% { transform: rotate(-5deg); } 20% { transform: rotate(30deg); } 26.6% { transform: rotate(-2deg); } 46.6% { transform: rotate(10deg); } 53.3% { transform: rotate(-5deg); } 56.6% { transform: rotate(10deg); }
+    }
+    @keyframes body { /* ... (ваш код анімації тіла) ... */
+      6.6% { transform: scaleY(1); } 10% { transform: scaleY(1.15); } 16.6% { transform: scaleY(1); } 20% { transform: scaleY(1.25); } 26.6% { transform: scaleY(1); } 46.6% { transform: scaleY(1.15); } 53.3% { transform: scaleY(1); } 56.6% { transform: scaleY(1.15); }
+    }
+    @keyframes left-whisker { /* ... (ваш код анімації лівого вуса) ... */
+      6.6% { transform: rotate(0); } 10% { transform: rotate(0deg); } 16.6% { transform: rotate(-5deg); } 20% { transform: rotate(0deg); } 26.6% { transform: rotate(0deg); } 46.6% { transform: rotate(10deg); } 53.3% { transform: rotate(-5deg); } 56.6% { transform: rotate(10deg); }
+    }
+    @keyframes right-whisker { /* ... (ваш код анімації правого вуса) ... */
+      6.6% { transform: rotate(180deg); } 10% { transform: rotate(190deg); } 16.6% { transform: rotate(180deg); } 20% { transform: rotate(175deg); } 26.6% { transform: rotate(190deg); } 46.6% { transform: rotate(180deg); } 53.3% { transform: rotate(185deg); } 56.6% { transform: rotate(175deg); }
+    }
+    @keyframes left-ear { /* ... (ваш код анімації лівого вуха) ... */
+      0% { transform: rotate(-20deg); } 6.6% { transform: rotate(-6deg); } 13.3% { transform: rotate(-15deg); } 26.6% { transform: rotate(-15deg); } 33.3% { transform: rotate(-30deg); } 40% { transform: rotate(-30deg); } 46.6% { transform: rotate(0deg); } 53.3% { transform: rotate(0deg); } 60% { transform: rotate(-15deg); } 80% { transform: rotate(-15deg); } 93.3% { transform: rotate(-6deg); } 100% { transform: rotate(-6deg); }
+    }
+    @keyframes right-ear { /* ... (ваш код анімації правого вуха) ... */
+      0%, 6.6% { transform: rotateZ(-16deg); } 13.3%, 26.6% { transform: rotateZ(-19deg); } 33.3%, 40.6%, 63.3% { transform: rotateZ(-30deg); } 36.6%, 38%, 41.3%, 46.6%, 53.3%, 61.3%, 64%, 80% { transform: rotateZ(-19deg); } 60.6% { transform: rotateZ(-30deg); } 93.3%, 100% { transform: rotateZ(-16deg); }
     }
   </style>
+
+  <link rel="icon" href="favico.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
 </head>
 <body>
 
@@ -326,21 +289,37 @@
 </div>
 
 <div id="control-panel">
-  <p>Click and drag to make more!</p>
+  <p>Click and drag to make more orbits!</p>
   <label>Trails: </label>
   <input type="checkbox" id="trail" name="trail" checked />
-  <button id="clear">Clear</button>
-  <a href="https://codepen.io/jackrugile/pen/aCzHs" target="_blank" style="color:#ccc;">View Version 2</a>
+  <button id="clear">Clear Orbits</button>
+  <a href="https://codepen.io/jackrugile/pen/aCzHs" target="_blank" title="View Original Pen">View Version 2</a>
 </div>
 
-<div class="static-image-wrapper">
-    <img src="URL_ВАШОГО_ЗОБРАЖЕННЯ_ТУТ" alt="Моє зображення у трьох форматах">
+<div class="image-gallery">
+  <div class="image-item">
+    <img src="photo.jpg" alt="Фотографія (JPG)" title="Приклад фотографії у форматі JPG">
+    <p>photo.jpg (JPG)</p>
+  </div>
+  <div class="image-item">
+    <img src="logo.png" alt="Логотип з прозорістю (PNG)" title="Приклад логотипу у форматі PNG з прозорістю">
+    <p>logo.png (PNG)</p>
+  </div>
+  <div class="image-item">
+    <svg width="120" height="120" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"
+         title="Приклад векторного зображення SVG">
+      <circle cx="50" cy="50" r="40" fill="#f06" stroke="#fff" stroke-width="3"/>
+      <rect x="20" y="20" width="60" height="20" fill="#0af" />
+      <text x="25" y="60" font-family="Arial" font-size="20" fill="#fff">SVG</text>
+    </svg>
+    <p>Вбудований SVG</p>
+  </div>
 </div>
 
 <canvas id="c"></canvas>
 
 <script>
-// ВЕСЬ ВАШ ОРИГІНАЛЬНИЙ JAVASCRIPT ТУТ
+// ВЕСЬ ВАШ ОРИГІНАЛЬНИЙ JAVASCRIPT ТУТ (для Canvas анімації)
 window.requestAnimFrame = (function(){
   return window.requestAnimationFrame   ||
          window.webkitRequestAnimationFrame ||
